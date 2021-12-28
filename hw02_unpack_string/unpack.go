@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"strconv"
 	"strings"
 	"unicode"
@@ -39,7 +38,6 @@ func Unpack(st string) (string, error) {
 		}
 		tmp = val
 	}
-
 	var b strings.Builder
 	multiplier := 1
 	for i, char := range st {
@@ -53,9 +51,4 @@ func Unpack(st string) (string, error) {
 		}
 	}
 	return stringutil.Reverse(b.String()), nil
-}
-
-func main() {
-	st := "aaa0b"
-	fmt.Println(Unpack(st))
 }
