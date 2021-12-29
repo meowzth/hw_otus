@@ -16,6 +16,8 @@ func TestUnpack(t *testing.T) {
 		{input: "abccd", expected: "abccd"},
 		{input: "", expected: ""},
 		{input: "aaa0b", expected: "aab"},
+		{input: "я0", expected: ""},
+		{input: "ъу2ъ", expected: "ъууъ"},
 		// uncomment if task with asterisk completed
 		// {input: `qwe\4\5`, expected: `qwe45`},
 		// {input: `qwe\45`, expected: `qwe44444`},
@@ -40,6 +42,24 @@ func TestUnpackInvalidString(t *testing.T) {
 		t.Run(tc, func(t *testing.T) {
 			_, err := Unpack(tc)
 			require.Truef(t, errors.Is(err, ErrInvalidString), "actual error %q", err)
+		})
+	}
+}
+
+func TestUnpackSingleDigit(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{input: "4", expected: "4"},
+		{input: "0", expected: "0"},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.input, func(t *testing.T) {
+			result, err := Unpack(tc.input)
+			require.Equal(t, tc.expected, result)
+			require.Truef(t, errors.Is(err, ErrAmbiquosString), "actual_error %q", err)
 		})
 	}
 }

@@ -10,27 +10,32 @@ import (
 )
 
 var ErrInvalidString = errors.New("invalid string")
+var ErrAmbiquosString = errors.New("ambiquos string")
 
 func Unpack(st string) (string, error) {
 	if len([]rune(st)) == 0 {
 		return st, nil
 	}
 	st = stringutil.Reverse(st)
-	digit_indexes := make(map[int]rune)
+
+	digitIndx := make(map[int]rune)
 	for i, char := range st {
 		if unicode.IsDigit(char) {
-			digit_indexes[i] = char
+			digitIndx[i] = char
 		}
 	}
-	di_slice := make([]int, len(digit_indexes))
+	digitIndxSlice := make([]int, len(digitIndx))
 	i := 0
-	for k := range digit_indexes {
-		di_slice[i] = k
+	for k := range digitIndx {
+		digitIndxSlice[i] = k
 		i++
 	}
 	tmp := -1
-	for _, val := range di_slice {
+	for _, val := range digitIndxSlice {
 		if val == len(st)-1 {
+			if val == 0 {
+				return st, ErrAmbiquosString
+			}
 			return "", ErrInvalidString
 		}
 		if val-1 == tmp {
@@ -38,17 +43,18 @@ func Unpack(st string) (string, error) {
 		}
 		tmp = val
 	}
-	var b strings.Builder
+
+	var res strings.Builder
 	multiplier := 1
 	for i, char := range st {
-		val, ok := digit_indexes[i]
+		val, ok := digitIndx[i]
 		if !ok {
-			b.WriteString(strings.Repeat(string(char), multiplier))
+			res.WriteString(strings.Repeat(string(char), multiplier))
 			multiplier = 1
 		}
 		if ok {
 			multiplier, _ = strconv.Atoi(string(val))
 		}
 	}
-	return stringutil.Reverse(b.String()), nil
+	return stringutil.Reverse(res.String()), nil
 }
