@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"strconv"
 	"strings"
 	"unicode"
@@ -41,7 +40,6 @@ func Unpack(st string) (string, error) {
 			return "", ErrInvalidString
 		}
 		if val-1 == tmp {
-			fmt.Print(val)
 			return "", ErrInvalidString
 		}
 		tmp = val
