@@ -10,6 +10,7 @@ import (
 )
 
 var ErrInvalidString = errors.New("invalid string")
+
 var ErrAmbiquosString = errors.New("ambiquos string")
 
 func Unpack(st string) (string, error) {
@@ -30,7 +31,7 @@ func Unpack(st string) (string, error) {
 		digitIndxSlice[i] = k
 		i++
 	}
-	tmp := -1
+	tmp := -2
 	for _, val := range digitIndxSlice {
 		if val == len(st)-1 {
 			if val == 0 {
