@@ -18,6 +18,7 @@ func Top10(st string) []string {
 	for _, char := range escapeChars {
 		st = strings.ReplaceAll(st, char, "")
 	}
+	st = strings.ReplaceAll(st, "- ", "")
 	stSlice := strings.Fields(st)
 
 	// building frequency map
@@ -28,11 +29,11 @@ func Top10(st string) []string {
 			freqMap[word] = 1
 		}
 		if ok {
-			freqMap[word] = freqMap[word] + 1
+			freqMap[word]++
 		}
 	}
 
-	// select top 10 keys from map
+	// select top keys from map
 	type kv struct {
 		Key   string
 		Value int
@@ -43,6 +44,9 @@ func Top10(st string) []string {
 	}
 	sort.Slice(freqSlice, func(i, j int) bool {
 		return freqSlice[i].Value > freqSlice[j].Value
+	})
+	sort.Slice(freqSlice, func(i, j int) bool {
+		return freqSlice[i].Key > freqSlice[j].Key
 	})
 	result := []string{}
 	rng := min(len(freqSlice), 10)
