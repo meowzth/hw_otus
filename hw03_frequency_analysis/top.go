@@ -5,6 +5,13 @@ import (
 	"strings"
 )
 
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
 func Top10(st string) []string {
 	st = strings.ToLower(st)
 	escapeChars := []string{"!", ".", ",", "?", ":", ";", "'", `"`}
@@ -38,7 +45,8 @@ func Top10(st string) []string {
 		return freqSlice[i].Value > freqSlice[j].Value
 	})
 	result := []string{}
-	for _, kv := range freqSlice[:10] {
+	rng := min(len(freqSlice), 10)
+	for _, kv := range freqSlice[:rng] {
 		result = append(result, kv.Key)
 	}
 
