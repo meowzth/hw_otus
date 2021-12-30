@@ -45,7 +45,7 @@ func Top10(st string) []string {
 	sort.Slice(freqSlice, func(i, j int) bool {
 		return freqSlice[i].Key < freqSlice[j].Key
 	})
-	sort.Slice(freqSlice, func(i, j int) bool {
+	sort.SliceStable(freqSlice, func(i, j int) bool {
 		return freqSlice[i].Value > freqSlice[j].Value
 	})
 	result := []string{}
