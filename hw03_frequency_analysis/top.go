@@ -38,7 +38,7 @@ func Top10(st string) []string {
 		Key   string
 		Value int
 	}
-	var freqSlice []kv
+	freqSlice := make([]kv, len(freqMap))
 	for k, v := range freqMap {
 		freqSlice = append(freqSlice, kv{k, v})
 	}
