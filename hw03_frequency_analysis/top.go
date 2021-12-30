@@ -1,4 +1,4 @@
-package hw03frequencyanalysis
+package hw03_frequency_analysis
 
 import (
 	"sort"
@@ -18,7 +18,7 @@ func Top10(st string) []string {
 	for _, char := range escapeChars {
 		st = strings.ReplaceAll(st, char, "")
 	}
-	st = strings.ReplaceAll(st, "- ", "")
+	st = strings.ReplaceAll(st, "- ", " ")
 	stSlice := strings.Fields(st)
 
 	// building frequency map
