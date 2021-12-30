@@ -43,10 +43,10 @@ func Top10(st string) []string {
 		freqSlice = append(freqSlice, kv{k, v})
 	}
 	sort.Slice(freqSlice, func(i, j int) bool {
-		return freqSlice[i].Value > freqSlice[j].Value
+		return freqSlice[i].Key < freqSlice[j].Key
 	})
 	sort.Slice(freqSlice, func(i, j int) bool {
-		return freqSlice[i].Key < freqSlice[j].Key
+		return freqSlice[i].Value > freqSlice[j].Value
 	})
 	result := []string{}
 	rng := min(len(freqSlice), 10)
